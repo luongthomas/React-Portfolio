@@ -1,20 +1,21 @@
-var express = require('express')
-var path = require('path')
-var compression = require('compression')
+var express = require('express');
+var path = require('path');
+var compression = require('compression');
+import React from 'react';
 
-import React from 'react'
 // we'll use this to render our app to an html string
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
+
 // and these to match the url to routes and then render
-import { match, RouterContext } from 'react-router'
-import routes from './modules/routes'
+import { match, RouterContext } from 'react-router';
+import routes from './modules/routes';
 
-var app = express()
+var app = express();
 
-app.use(compression())
+app.use(compression());
 
 // serve our static stuff like index.css
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 // send all requests to index.html so browserHistory works
 app.get('*', (req, res) => {
@@ -24,14 +25,14 @@ app.get('*', (req, res) => {
     // `props` in its state as it listens to `browserHistory`. But on the
     // server our app is stateless, so we need to use `match` to
     // get these props before rendering
-    const appHtml = renderToString(<RouterContext {...props}/>)
+    const appHtml = renderToString(<RouterContext {...props}/>);
 
     // dump the HTML into a template, lots of ways to do this, but none are
     // really influenced by React Router, so we're using a little
     // function, `renderPage`
-    res.send(renderPage(appHtml))
-  })
-})
+    res.send(renderPage(appHtml));
+  });
+});
 
 function renderPage(appHtml) {
   return `
@@ -42,11 +43,10 @@ function renderPage(appHtml) {
     <link rel=stylesheet href=/index.css>
     <div id=app>${appHtml}</div>
     <script src="/bundle.js"></script>
-    `
-}
+    `;
+};
 
-
-var PORT = process.env.PORT || 8080
-app.listen(PORT, function() {
-  console.log('Production Express server running at localhost:' + PORT)
-})
+var PORT = process.env.PORT || 8080;
+app.listen(PORT, function () {
+  console.log('Production Express server running at localhost:' + PORT);
+});

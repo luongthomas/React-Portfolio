@@ -1,6 +1,5 @@
 var React = require('react');
 
-
 var Main = React.createClass({
   render: function () {
     return (
@@ -8,9 +7,8 @@ var Main = React.createClass({
         {this.props.children}
       </div>
 
-
-    )
-  }
+    );
+  },
 });
 
 module.exports = Main;
