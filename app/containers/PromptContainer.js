@@ -28,6 +28,7 @@ var PromptContainer = React.createClass({
 
     // go to battle
     // routeParams is in the URL appended by the else clause
+    // the way in which you route to a new path inside a function is this
     if (this.props.routeParams.playerOne) {
       this.context.router.push({
         pathname: '/battle',
