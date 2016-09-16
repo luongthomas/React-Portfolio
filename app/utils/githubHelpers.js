@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 //  Github allows free requests but rate limits quickly, so use api key credentials
-var accessToken = '';
+var accessToken = 'f3f3f6a1152ba4e30f5dc23a7479cd6ec02c8e9b';
 var sec = 'secret';
 var clientID = 'CLIENT_ID';
 var param = '?client_id=' + clientID + '&client_secret' + sec;
