@@ -19,6 +19,7 @@ function StartOver() {
   );
 }
 
+
 function Results(props) {
   if (props.isLoading === true) {
     return (

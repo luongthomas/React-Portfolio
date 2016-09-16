@@ -22,6 +22,16 @@ function UserDetails(user) {
 }
 
 // Component takes in prop of info
+// propTypes is a property of the function, and not in the function itself
+
+/*
+Correct syntax for proptypes in stateless functional components
+MyComponent.propTypes = {}
+
+function MyComponent () {
+
+}
+*/
 UserDetails.propTypes = {
   score: PropTypes.number,
   info: PropTypes.shape({
