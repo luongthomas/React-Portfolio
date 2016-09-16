@@ -5,7 +5,10 @@ var UserDetails = require('./UserDetails');
 var UserDetailsWrapper = require('./UserDetailsWrapper');
 var Link = require('react-router').Link;
 var MainContainer = require('./MainContainer');
+var Loading = require('../components/Loading');
 
+// Private functional stateless component, is good to avoid repeating code
+//  another benefit is there is no 'this' keyword
 function StartOver() {
   return (
     <div className='col-sm-12' style={styles.space}>
@@ -19,7 +22,7 @@ function StartOver() {
 function Results(props) {
   if (props.isLoading === true) {
     return (
-      <p> LOADING </p>
+      <Loading text={'One Moment'} speed={100}/>
     );
   };
 
