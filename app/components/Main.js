@@ -4,7 +4,8 @@ var ReactCSSTtransitionGroup = require('react-addons-css-transition-group');
 // we can do this through webpack loaders
 require('../main.css');
 
-// Key from react router. CloneElement lets us attach a key to the "would-be component", aka new props
+// Key from react router. CloneElement lets us attach a key to the "would-be component"
+//  , aka new props
 // React keeps track of keys (order) or a list of items and their orders
 // ReactCSSTtransitionGroup needs its children to have keys
 var Main = React.createClass({
@@ -17,7 +18,6 @@ var Main = React.createClass({
           transitionLeaveTimeout={500}>
             { React.cloneElement(this.props.children, { key: this.props.location.pathname })}
         </ReactCSSTtransitionGroup>
-
       </div>
 
     );

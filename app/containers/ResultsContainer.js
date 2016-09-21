@@ -26,8 +26,8 @@ var ResultsContainer = React.createClass({
   render: function () {
     return (
       <Results
-        isLoading={this.state.isLoading}
-        scores={this.state.scores}
+        isLoading={null}
+        scores={null}
         playersInfo={this.props.location.state.playersInfo}/>
     );
   },

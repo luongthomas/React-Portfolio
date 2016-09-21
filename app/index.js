@@ -13,6 +13,11 @@ var _APP_INFO = {
   version: '1.0',
 };
 
+// On error, will ask the user about the error
+window.onerror = function () {
+  Raven.showReportDialog();
+};
+
 Raven.config(sentryURL, {
   release: _APP_INFO.version,
   tags: {
@@ -20,7 +25,5 @@ Raven.config(sentryURL, {
     github_commit: 'commithash',
   },
 }).install();
-
-// console.log(window.thing.nope);
 
 ReactDOM.render(routes, document.getElementById('app'));

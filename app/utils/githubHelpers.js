@@ -1,4 +1,5 @@
 var axios = require('axios');
+var logCustomMessage = require('./logCustomMessage');
 
 //  Github allows free requests but rate limits quickly, so use api key credentials
 var accessToken = 'f3f3f6a1152ba4e30f5dc23a7479cd6ec02c8e9b';
@@ -61,10 +62,17 @@ var helpers = {
     // map loops over all elements, creates a new array of promises (return from getUserInfo)
     return axios.all(players.map(function (username) {
       return getUserInfo(username);
-    })).then(function (info) {
+    }))
+    .then(function (info) {
       // return an array of user.data for each player.  obj.data holds user info
       return info.map(function (user) {
         return user.data;
+      });
+    })
+    .catch(function (error) {
+      return logCustomMessage(error.statusText, {
+        players: players,
+        error: error,
       });
     });
   },
@@ -78,8 +86,11 @@ var helpers = {
 
       return axios.all([playerOneData, playerTwoData])
         .then(calculateScores)
-        .catch(function (err) {
-          console.warn('Error in getPlayersInfo: ', err);
+        .catch(function (error) {
+          return logCustomMessage(error.statusText, {
+            players: players,
+            error: error,
+          });
         });
     },
 };

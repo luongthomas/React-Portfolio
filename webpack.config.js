@@ -6,6 +6,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
+  devtool: 'source-map', // allows the console to map to the actual file instead of the bundle
   entry: [
     './app/index.js',
   ],
