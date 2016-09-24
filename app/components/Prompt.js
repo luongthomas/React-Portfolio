@@ -1,6 +1,5 @@
-var React = require('react');
-var transparentBg = require('../styles').transparentBg;
-var PropTypes = React.PropTypes;
+import React, { PropTypes } from 'react';
+import { transparentBg } from '../styles';
 
 // Functional stateless components
 //   If the component only renders UI, can make it return instead of rendering
@@ -39,4 +38,4 @@ Prompt.propTypes = {
     onSubmitUser: PropTypes.func.isRequired,
   };
 
-module.exports = Prompt;
+export default Prompt;

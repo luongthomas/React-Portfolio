@@ -1,10 +1,9 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var Results = require('../components/Results');
-var githubHelpers = require('../utils/githubHelpers');
+import React from 'react';
+import Results from '../components/Results';
+import { battle } from '../utils/githubHelpers';
 
 // Don't need to save playersInfo since it is being saved in our state from ConfirmBattleC
-var ResultsContainer = React.createClass({
+const ResultsContainer = React.createClass({
   getInitialState: function () {
     return {
       isLoading: true,
@@ -13,7 +12,7 @@ var ResultsContainer = React.createClass({
   },
 
   componentDidMount: function () {
-    githubHelpers.battle(this.props.location.state.playersInfo) // given from router context
+    battle(this.props.location.state.playersInfo) // given from router context
       .then(function (scores) {
         this.setState({
           scores: scores,
@@ -26,12 +25,12 @@ var ResultsContainer = React.createClass({
   render: function () {
     return (
       <Results
-        isLoading={null}
-        scores={null}
+        isLoading={false}
+        scores={this.state.scores}
         playersInfo={this.props.location.state.playersInfo}/>
     );
   },
 
 });
 
-module.exports = ResultsContainer;
+export default ResultsContainer;

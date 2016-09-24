@@ -2,13 +2,13 @@
 import React from 'react';
 import { Router, Route, hashHistory, browserHistory, IndexRoute } from 'react-router';
 
-var Main = require('../components/Main');
-var Home = require('../components/Home');
-var PromptContainer = require('../containers/PromptContainer');
-var ConfirmBattleContainer = require('../containers/ConfirmBattleContainer');
-var ResultsContainer = require('../containers/ResultsContainer');
+import Main from '../components/Main';
+import Home from '../components/Home';
+import PromptContainer from '../containers/PromptContainer';
+import ConfirmBattleContainer from '../containers/ConfirmBattleContainer';
+import ResultsContainer from '../containers/ResultsContainer';
 
-var routes = (
+const routes = (
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
       <IndexRoute component={Home} />
@@ -20,4 +20,4 @@ var routes = (
   </Router>
 );
 
-module.exports = routes;
+export default routes;

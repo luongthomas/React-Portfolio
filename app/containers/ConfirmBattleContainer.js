@@ -1,11 +1,10 @@
 // Container will handle the logic, while components handle the UI
 
-var React = require('react');
-var PropTypes = React.PropTypes;
-var ConfirmBattle = require('../components/ConfirmBattle');
-var githubHelpers = require('../utils/githubHelpers');
+import React, { PropTypes } from 'react';
+import ConfirmBattle from '../components/ConfirmBattle';
+import { getPlayersInfo } from '../utils/githubHelpers';
 
-var ConfirmBattleContainer = React.createClass({
+const ConfirmBattleContainer = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
   },
@@ -17,10 +16,11 @@ var ConfirmBattleContainer = React.createClass({
   },
 
   componentDidMount: function () {
-      var query = this.props.location.query;
+      // if we want items off .location, we just add it into the brackets
+      const { query } = this.props.location;
 
       //  Fetch info from github then update state
-      githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo])
+      getPlayersInfo([query.playerOne, query.playerTwo])
         .then(function (players) {
           this.setState({
             isLoading: false,
@@ -55,4 +55,4 @@ var ConfirmBattleContainer = React.createClass({
 
 });
 
-module.exports = ConfirmBattleContainer;
+export default ConfirmBattleContainer;

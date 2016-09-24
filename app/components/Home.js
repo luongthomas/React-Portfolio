@@ -1,7 +1,7 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var MainContainer = require('./MainContainer');
+import React from 'react';
+import { Link } from 'react-router';
+import MainContainer from '../containers/MainContainer';
+import { transparentBg } from '../styles';
 
 var Home = React.createClass({
   render: function () {
@@ -19,4 +19,4 @@ var Home = React.createClass({
   },
 });
 
-module.exports = Home;
+export default Home;

@@ -1,11 +1,14 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var styles = require('../styles');
-var Link = require('react-router').Link;
-var UserDetails = require('./UserDetails');
-var UserDetailsWrapper = require('./UserDetailsWrapper');
-var MainContainer = require('./MainContainer');
-var Loading = require('./Loading');
+import React, { PropTypes } from 'react';
+
+import { space } from '../styles';
+
+// make a local var named Link, and set equal to react-router object's Link property
+import { Link, Router, Route } from 'react-router';
+
+import UserDetails from './UserDetails';
+import UserDetailsWrapper from './UserDetailsWrapper';
+import MainContainer from '../containers/MainContainer';
+import Loading from './Loading';
 
 // A trick to display object info in json format
 function puke(object) {
@@ -27,13 +30,13 @@ function ConfirmBattle(props) {
           </UserDetailsWrapper>
         </div>
         <div className='col-sm-8 col-sm-offset-2'>
-          <div className='col-sm-12' style={styles.space}>
+          <div className='col-sm-12' style={space}>
             <button type='button' className='btn btn-lg btn-success space'
                 onClick={props.onInitiateBattle}>
               Initiate Battle!
             </button>
           </div>
-          <div className='col-sm-12' style={styles.space}>
+          <div className='col-sm-12' style={space}>
             <Link to='/playerOne'>
               <button type='button' className='btn btn-lg btn-danger space'>
                 Reselect Players
@@ -50,4 +53,4 @@ ConfirmBattle.propTypes = {
   onInitiateBattle: PropTypes.func.isRequired,
 };
 
-module.exports = ConfirmBattle;
+export default ConfirmBattle;

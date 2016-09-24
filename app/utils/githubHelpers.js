@@ -1,11 +1,11 @@
-var axios = require('axios');
-var logCustomMessage = require('./logCustomMessage');
+import axios from 'axios';
+import logCustomMessage from './logCustomMessage';
 
 //  Github allows free requests but rate limits quickly, so use api key credentials
-var accessToken = 'f3f3f6a1152ba4e30f5dc23a7479cd6ec02c8e9b';
-var sec = 'secret';
-var clientID = 'CLIENT_ID';
-var param = '?client_id=' + clientID + '&client_secret' + sec;
+const accessToken = 'f3f3f6a1152ba4e30f5dc23a7479cd6ec02c8e9b';
+const sec = 'secret';
+const clientID = 'CLIENT_ID';
+const param = '?client_id=' + clientID + '&client_secret' + sec;
 
 // Pass the GET request URL to get
 // returns a promise, which .then() could be appended to (data modified) and resolved
@@ -55,44 +55,41 @@ function calculateScores(players) {
 // axios.all allows multiple requests in parallel, returning an array of response objects
 //  in same order they were sent
 //  axios.spread is same but doesn't use array indices, separates into multiple arguements
-var helpers = {
-  //  loops over an array, and returns a promise meaning the function-caller can do a .then()
-  getPlayersInfo: function (players) {
-    // fetch some data from Github
-    // map loops over all elements, creates a new array of promises (return from getUserInfo)
-    return axios.all(players.map(function (username) {
-      return getUserInfo(username);
-    }))
-    .then(function (info) {
-      // return an array of user.data for each player.  obj.data holds user info
-      return info.map(function (user) {
-        return user.data;
-      });
-    })
+
+//  loops over an array, and returns a promise meaning the function-caller can do a .then()
+export function getPlayersInfo(players) {
+  // fetch some data from Github
+  // map loops over all elements, creates a new array of promises (return from getUserInfo)
+  return axios.all(players.map(function (username) {
+    return getUserInfo(username);
+  }))
+  .then(function (info) {
+    // return an array of user.data for each player.  obj.data holds user info
+    return info.map(function (user) {
+      return user.data;
+    });
+  })
+  .catch(function (error) {
+    return logCustomMessage(error.statusText, {
+      players: players,
+      error: error,
+    });
+  });
+};
+
+// find winner based on user data
+// playerOneData and playerTwoData are promises since getPlayerData returns promises
+// .all() means when all promises are resolved, then do.. then then()
+export function battle(players) {
+  const playerOneData = getPlayersData(players[0]);
+  const playerTwoData = getPlayersData(players[1]);
+
+  return axios.all([playerOneData, playerTwoData])
+    .then(calculateScores)
     .catch(function (error) {
       return logCustomMessage(error.statusText, {
         players: players,
         error: error,
       });
     });
-  },
-
-  // find winner based on user data
-  // playerOneData and playerTwoData are promises since getPlayerData returns promises
-  // .all() means when all promises are resolved, then do.. then then()
-  battle: function (players) {
-      var playerOneData = getPlayersData(players[0]);
-      var playerTwoData = getPlayersData(players[1]);
-
-      return axios.all([playerOneData, playerTwoData])
-        .then(calculateScores)
-        .catch(function (error) {
-          return logCustomMessage(error.statusText, {
-            players: players,
-            error: error,
-          });
-        });
-    },
 };
-
-module.exports = helpers;

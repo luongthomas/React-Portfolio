@@ -1,5 +1,5 @@
 var React = require('react');
-var MainContainer = require('./MainContainer');
+import MainContainer from './MainContainer';
 var Navbar = require('./Navbar');
 var Main = React.createClass({
   render: function () {

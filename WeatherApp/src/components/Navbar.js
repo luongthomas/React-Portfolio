@@ -1,12 +1,12 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
-var styles = require('../styles');
+import container from '../styles';
 
 var Navbar = React.createClass({
 
   render: function () {
     return (
-      <div style={styles.container}>
+      <div style={container}>
         <div className="">
           Clever Title
         </div>

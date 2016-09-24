@@ -1,15 +1,15 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var routes = require('./config/routes');
-var Raven = require('raven-js');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import routes from './config/routes';
+import Raven from 'raven-js';
 
-var sentryKey = '3db5bc6e52384976a76cace43c8a7e12';
-var sentryApp = '99058';
-var sentryURL = 'https://' + sentryKey + '@sentry.io/' + sentryApp;
+const sentryKey = '3db5bc6e52384976a76cace43c8a7e12';
+const sentryApp = '99058';
+const sentryURL = 'https://' + sentryKey + '@sentry.io/' + sentryApp;
 
-var _APP_INFO = {
-  name: 'Github Battle',
-  branch: 'video4',
+const _APP_INFO = {
+  name: 'Github Battle - ES5/6',
+  branch: 'video1',
   version: '1.0',
 };
 

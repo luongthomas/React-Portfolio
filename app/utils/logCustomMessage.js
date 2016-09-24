@@ -1,5 +1,5 @@
 // Provides helpful messages for Sentry
-var Raven = require('raven-js');
+import Raven from 'raven-js';
 
 // extra is any other information we decide to pass to the function, will show up in sentry
 function logCustomMessage(message, context) {
@@ -11,4 +11,4 @@ function logCustomMessage(message, context) {
   console.error(message);
 };
 
-module.exports = logCustomMessage;
+export default logCustomMessage;

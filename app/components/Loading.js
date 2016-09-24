@@ -1,8 +1,9 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React, { PropTypes } from 'react';
+
+// Const vs let vs var
 
 // Centers component and text on the page
-var styles = {
+const styles = {
   container: {
     position: 'fixed',
     left: 0,
@@ -21,7 +22,7 @@ var styles = {
 
 };
 
-var Loading = React.createClass({
+const Loading = React.createClass({
   // To control the proptypes we receive
   propTypes: {
     text: PropTypes.string,
@@ -48,7 +49,7 @@ var Loading = React.createClass({
   // when the text becomes 'loading...', it will reset state back to 'loading'
   // use originalText variable to prevent repeating of manually typed words
   componentDidMount: function () {
-    var stopper = this.originalText + '...';
+    const stopper = this.originalText + '...';
     this.interval = setInterval(function () {
       if (this.state.text == stopper) {
         this.setState({
@@ -78,4 +79,4 @@ var Loading = React.createClass({
 
 });
 
-module.exports = Loading;
+export default Loading;
