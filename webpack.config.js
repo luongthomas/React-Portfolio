@@ -8,6 +8,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   devtool: 'source-map', // allows the console to map to the actual file instead of the bundle
   entry: [
+    'babel-polyfill',
     './app/index.js',
   ],
   output: {

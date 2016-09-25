@@ -30,7 +30,7 @@ const Loading = React.createClass({
   },
 
   // Will use these props if none are passed in
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       text: 'Loading',
       speed: '300',
@@ -39,7 +39,7 @@ const Loading = React.createClass({
 
   // Initial state of text is the value of the prop passed in, after so we dont use prop
   //  This makes it not an anti pattern
-  getInitialState: function () {
+  getInitialState() {
     this.originalText = this.props.text;
     return {
       text: this.originalText,
@@ -48,9 +48,9 @@ const Loading = React.createClass({
 
   // when the text becomes 'loading...', it will reset state back to 'loading'
   // use originalText variable to prevent repeating of manually typed words
-  componentDidMount: function () {
+  componentDidMount() {
     const stopper = this.originalText + '...';
-    this.interval = setInterval(function () {
+    this.interval = setInterval(() => {
       if (this.state.text == stopper) {
         this.setState({
           text: this.originalText,
@@ -60,16 +60,16 @@ const Loading = React.createClass({
           text: this.state.text + '.',
         });
       }
-    }.bind(this), this.props.speed);
+    }, this.props.speed);
   },
 
   //  setInterval returns thing which clearInterval uses so setinterval wont run anymore
   //   aka removes the interval
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     clearInterval(this.interval);
   },
 
-  render: function () {
+  render() {
     return (
       <div style={styles.container}>
         <p style={styles.content}>{this.state.text}</p>

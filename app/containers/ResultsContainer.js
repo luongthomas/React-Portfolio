@@ -4,25 +4,25 @@ import { battle } from '../utils/githubHelpers';
 
 // Don't need to save playersInfo since it is being saved in our state from ConfirmBattleC
 const ResultsContainer = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       isLoading: true,
       scores: [],
     };
   },
 
-  componentDidMount: function () {
-    battle(this.props.location.state.playersInfo) // given from router context
-      .then(function (scores) {
-        this.setState({
-          scores: scores,
-          isLoading: false,
-        });
-      }.bind(this));  // because we're using 'this' inside a different function, bind the scope
+  async componentDidMount() {
+    const scores = await battle(this.props.location.state.playersInfo); // given from router context
+    try {
+      this.setState({ scores, isLoading: false });
+    } catch (error) {
+      console.warn('Error in ResultsContainer', error);
+    }
+
   },
 
   // When state changes from componentDidMount, <Results> rerenders with the new state
-  render: function () {
+  render() {
     return (
       <Results
         isLoading={false}

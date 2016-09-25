@@ -26,21 +26,24 @@ const PromptContainer = React.createClass({
       username: '',
     });
 
+    // Concise objects: if key is exact same as value, just pass in key or value
+    const { playerOne } = this.props.routeParams;
+
     // go to battle
     // routeParams is in the URL appended by the else clause
     // the way in which you route to a new path inside a function is this
-    if (this.props.routeParams.playerOne) {
+    if (playerOne) {
       this.context.router.push({
         pathname: '/battle',
         query: {
-          playerOne: this.props.routeParams.playerOne,
+          playerOne,
           playerTwo: username,
         },
       });
 
     // go to playerTwo
     } else {
-      this.context.router.push('/playerTwo/' + this.state.username);
+      this.context.router.push(`/playerTwo/${this.state.username}`);
     }
   },
 

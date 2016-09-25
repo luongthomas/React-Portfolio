@@ -9,7 +9,7 @@ import '../main.css';
 // React keeps track of keys (order) or a list of items and their orders
 // ReactCSSTtransitionGroup needs its children to have keys
 const Main = React.createClass({
-  render: function () {
+  render() {
     return (
       <div className='main-container'>
         <ReactCSSTtransitionGroup
@@ -19,7 +19,6 @@ const Main = React.createClass({
             { React.cloneElement(this.props.children, { key: this.props.location.pathname })}
         </ReactCSSTtransitionGroup>
       </div>
-
     );
   },
 });

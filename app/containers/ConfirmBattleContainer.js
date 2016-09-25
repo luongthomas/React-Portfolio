@@ -1,6 +1,4 @@
-// Container will handle the logic, while components handle the UI
-
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ConfirmBattle from '../components/ConfirmBattle';
 import { getPlayersInfo } from '../utils/githubHelpers';
 
@@ -8,34 +6,28 @@ const ConfirmBattleContainer = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
   },
-  getInitialState: function () {
+  getInitialState() {
     return {
       isLoading: true,
       playersInfo: [],
     };
   },
 
-  componentDidMount: function () {
-      // if we want items off .location, we just add it into the brackets
-      const { query } = this.props.location;
+  async componentDidMount() {
+    const { query } = this.props.location;
+    try {
+      const players = await getPlayersInfo([query.playerOne, query.playerTwo]);
 
-      //  Fetch info from github then update state
-      getPlayersInfo([query.playerOne, query.playerTwo])
-        .then(function (players) {
-          this.setState({
-            isLoading: false,
-            playersInfo: [players[0], players[1]],
-          });
-        }.bind(this))   // binding this allows us to keep the context to query's 'this'
-                        // without it, it tries to set state of githubHelpers (undesired)
-
-        // if any errors are thrown prior, then gives err as error message
-        .catch(function (err) {
-          console.warn('Error in getPlayersInfo', err);
+      this.setState({
+          isLoading: false,
+          playersInfo: [players[0], players[1]],
         });
-    },
+    } catch (error) {
+      console.warn('Error in ComponentDidMount', error);
+    }
+  },
 
-  handleInitiateBattle: function () {
+  handleInitiateBattle() {
     this.context.router.push({
       pathname: '/results',
       state: {
@@ -44,15 +36,14 @@ const ConfirmBattleContainer = React.createClass({
     });
   },
 
-  render: function () {
+  render() {
     return (
       <ConfirmBattle
         isLoading={this.state.isLoading}
         onInitiateBattle={this.handleInitiateBattle}
-        playersInfo={this.state.playersInfo}/>
+        playersInfo={this.state.playersInfo} />
     );
   },
-
 });
 
 export default ConfirmBattleContainer;
