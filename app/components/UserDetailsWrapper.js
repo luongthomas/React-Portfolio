@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-function UserDetailsWrapper({ children }) {
+function UserDetailsWrapper({ header, children }) {
   return (
     <div className='col-sm-6'>
-      <p className='lead'>{props.header}</p>
+      <p className='lead'>{header}</p>
       {children}
     </div>
   );

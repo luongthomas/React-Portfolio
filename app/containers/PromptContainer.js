@@ -1,26 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Prompt from '../components/Prompt';
 
-const PromptContainer = React.createClass({
-  // Don't have to pass router down to all children as a props, use context
-  contextTypes: {
-    router: React.PropTypes.object.isRequired,
-  },
+class PromptContainer extends Component {
 
-  getInitialState: function () {
-    return {
+  constructor() {
+    super();
+    this.state = {
       username: '',
     };
-  },
+  }
 
-  handleUpdateUser: function (event) {
+  handleUpdateUser (event) {
     this.setState({
       username: event.target.value,
     });
-  },
+  }
 
-  handleSubmitUser: function (e) {
-    e.preventDefault();
+  handleSubmitUser (event) {
+    event.preventDefault();
     const { username } = this.state;
     this.setState({
       username: '',
@@ -43,22 +40,26 @@ const PromptContainer = React.createClass({
 
     // go to playerTwo
     } else {
-      this.context.router.push(`/playerTwo/${this.state.username}`);
+      this.context.router.push(`/playerTwo/${username}`);
     }
-  },
+  }
 
   //  Passing functions use on prefix, the parameter itself has handle prefix
-  render: function () {
+  render() {
     return (
       <Prompt
-        onSubmitUser={this.handleSubmitUser}
-        onUpdateUser={this.handleUpdateUser}
+        onSubmitUser={(event) => this.handleSubmitUser(event)}
+        onUpdateUser={(event) => this.handleUpdateUser(event)}
         header={this.props.route.header}
         username={this.state.username}  />
 
     );
-  },
+  }
+};
 
-});
+// Don't have to pass router down to all children as a props, use context
+PromptContainer.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  };
 
 export default PromptContainer;

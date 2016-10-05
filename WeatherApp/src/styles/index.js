@@ -1,5 +1,6 @@
 var bg = require('../img/bg.jpg');
 
+
 var styles = {
   verticalAlign: {
     flex: '1 1 auto',
@@ -8,10 +9,15 @@ var styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     height: '630px',
-    backgroundImage: 'url(' + bg + ')',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100%',
-    color: 'lightgray',
+    color: 'black',
+  },
+
+  background: {
+    backgroundImage: 'url(' + bg + ')',
+    backgroundRepeat: 'no-repeat',
+
   },
 
   space: {

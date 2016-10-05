@@ -1,13 +1,14 @@
 import axios from 'axios';
-import logCustomMessage from './logCustomMessage';
 
 //  Github allows free requests but rate limits quickly, so use api key credentials
+const id = 'CLIENT_ID';
+const sec = 'YOUR_SECRET_ID';
 const accessToken = '2690e0187ed97803f9dff9853a3e91d30b955204';
-const sec = 'secret';
-const clientID = 'CLIENT_ID';
-const param = `?client_id=${clientID}&client_secret=${sec}&access_token=${accessToken}`;
 
-//http://api.github.com/users/luongthomas?client_id=clientID&client_secret=secret&access_token=2690e0187ed97803f9dff9853a3e91d30b955204
+// const param = `?client_id=${id}&client_secret=${sec}&access_token=${accessToken}`;
+const param = `?client_id=${id}&client_secret=${sec}&access_token=${accessToken}`;
+
+//http://api.github.com/users/luongthomas?client_id=CLIENT_ID&client_secret=YOUR_SECRET_ID&access_token=2690e0187ed97803f9dff9853a3e91d30b955204
 // Pass the GET request URL to get
 // returns a promise, which .then() could be appended to (data modified) and resolved
 // if username is returned to be undefined, the default value of luongthomas will be set
@@ -75,7 +76,6 @@ export async function battle(players) {
   try {
     const playerOneData = await getPlayersData(players[0]);
     const playerTwoData = await getPlayersData(players[1]);
-
     const playerData =  Promise.all([playerOneData, playerTwoData]);
     return await calculateScores(playerData);
   } catch (error) {
