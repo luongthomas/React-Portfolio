@@ -1,5 +1,5 @@
-var React = require('react');
-var GetCityContainer = require('./GetCityContainer');
+import React, { Component } from 'react';
+import GetCityContainer from './GetCityContainer';
 
 var styles = {
   container: {
@@ -18,9 +18,9 @@ var styles = {
 
 };
 
-var Main = React.createClass({
+class Main extends Component {
 
-  render: function () {
+  render() {
     return (
       <div style={styles.container}>
         <div style={styles.header}>
@@ -30,8 +30,8 @@ var Main = React.createClass({
         {this.props.children}
       </div>
     );
-  },
+  }
 
-});
+};
 
-module.exports = Main;
+export default Main;

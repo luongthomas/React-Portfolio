@@ -1,9 +1,8 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var GetCityContainer = require('../containers/GetCityContainer');
-var background = require('../images/bg.jpg');
+import React from 'react';
+import GetCityContainer from '../containers/GetCityContainer';
+import background from '../images/bg.jpg';
 
-var styles = {
+const styles = {
   container: {
     backgroundSize: 'cover',
     backgroundImage: 'url(' + background + ')',
@@ -23,8 +22,7 @@ var styles = {
 
 };
 
-function Home(props) {
-  console.log('background', background);
+function Home() {
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Enter a City and State</h1>
@@ -33,4 +31,4 @@ function Home(props) {
   );
 }
 
-module.exports = Home;
+export default Home;

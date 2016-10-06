@@ -1,17 +1,14 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var utils = require('../utils/utils');
-var getDate = utils.getDate;
-var DayItem = require('./DayItem');
+import React, { PropTypes } from 'react';
+import DayItem from './DayItem';
 
-var styles = {
+const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    maxWidth: '1200',
+    maxWidth: '1200px',
     margin: '50px auto',
   },
 
@@ -31,35 +28,33 @@ var styles = {
   },
 };
 
-function Forecast(props) {
+function Forecast({ isLoading, city, handleClick, forecastData }) {
   return (
     <div>
       {
-        props.isLoading === true
+        isLoading === true
         ? <h1 style={styles.header}> Loading </h1>
         : <ForecastUI
-            city={props.city}
-            handleClick={props.handleClick}
-            forecast={props.forecastData} />
+            city={city}
+            handleClick={(forecastData) => handleClick(forecastData)}
+            forecast={forecastData} />
       }
     </div>
   );
 }
 
-function ForecastUI(props) {
+function ForecastUI({ city, forecast, handleClick }) {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1 style={styles.header}>{props.city}</h1>
+      <h1 style={styles.header}>{city}</h1>
       <p style={styles.subheader}>Select a day</p>
       <div style={styles.container}>
-        { props.forecast.list.map(function (listItem) {
-            return (
+        { forecast.list.map((listItem) => (
               <DayItem
                 key={listItem.dt}
                 day={listItem}
-                handleClick={props.handleClick.bind(null, listItem)} />
-            );
-          })
+                handleClick={handleClick.bind(null, listItem)} />
+            ))
         }
       </div>
     </div>
@@ -73,4 +68,4 @@ Forecast.propTypes = {
   forecastData: PropTypes.object.isRequired,
 };
 
-module.exports = Forecast;
+export default Forecast;

@@ -1,7 +1,6 @@
-var bg = require('../img/bg.jpg');
+const bg = require('../img/bg.jpg');
 
-
-var styles = {
+const styles = {
   verticalAlign: {
     flex: '1 1 auto',
     display: 'flex',
@@ -33,4 +32,4 @@ var styles = {
 
 };
 
-module.exports = styles;
+export default styles;

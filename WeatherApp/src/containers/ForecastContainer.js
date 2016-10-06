@@ -1,57 +1,57 @@
-var React = require('react');
-var api = require('../utils/api');
-var Forecast = require('../components/Forecast');
-var getForecast = require('../utils/api').getForecast;
+import React, { Component } from 'react';
+import Forecast from '../components/Forecast';
+import { getForecast } from '../helpers/api';
 
-var ForecastContainer = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired,
-  },
-
-  getInitialState: function () {
-    return {
+class ForecastContainer extends Component {
+  constructor() {
+    super();
+    this.state = {
       isLoading: true,
       forecastData: {},
     };
-  },
+  }
 
-  componentDidMount: function (props) {
+  componentDidMount(props) {
     this.makeRequest(this.props.routeParams.city);
-  },
+  }
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.makeRequest(nextProps.routeParams.city);
-  },
+  }
 
-  makeRequest: function (city) {
+  makeRequest(city) {
     getForecast(city)
-      .then(function (forecastData) {
+      .then((forecastData) => {
         this.setState({
           isLoading: false,
-          forecastData: forecastData,
+          forecastData,
         });
-      }.bind(this));
-  },
+      });
+  }
 
-  handleClick: function (weather) {
+  handleClick(weather) {
     this.context.router.push({
-      pathname: '/detail/' + this.props.routeParams.city,
+      pathname: `/detail/${this.props.routeParams.city}`,
       state: {
-        weather: weather,
+        weather,
       },
     });
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <Forecast
         city={this.props.routeParams.city}
         isLoading={this.state.isLoading}
-        handleClick={this.handleClick}
-        forecastData={this.state.forecastData}/>
+        forecastData={this.state.forecastData}
+        handleClick={(weather) => this.handleClick(weather)} />
     );
-  },
+  }
 
-});
+};
 
-module.exports = ForecastContainer;
+ForecastContainer.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
+
+export default ForecastContainer;
