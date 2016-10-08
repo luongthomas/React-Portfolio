@@ -16,8 +16,10 @@
   modal: {
     duck,
     isOpen
-  }
+  },
   ducks: {
+    isFetching,
+    error,
     [duckId]: {
       lastUpdated,
       error
@@ -65,6 +67,6 @@
     error,
     newDucksAvailable,
     duckIdsToAdd: [  ],
-    ducksIds: [duckId, duckId,duckId, duckId]
+    duckIds: [duckId, duckId,duckId, duckId]
   }
 }
