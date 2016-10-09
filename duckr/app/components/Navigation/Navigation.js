@@ -9,7 +9,7 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 function NavLinks({ isAuthed }) {
   return isAuthed === true
   ? <ul>
-      <li><Link className={link} to-='/'>{`Home`}</Link></li>
+      <li><Link to='/' className={link} >{`Home`}</Link></li>
     </ul>
   : null
 }
@@ -18,11 +18,11 @@ function ActionLinks({ isAuthed }) {
   return isAuthed === true
   ? <ul>
       <li>NEW DUCK</li>
-      <li><Link className={link} to-='/logout'>{`Logout`}</Link></li>
+      <li><Link to='/logout' className={link} >{`Logout`}</Link></li>
     </ul>
   : <ul>
-      <li><Link className={link} to-='/'>{`Home`}</Link></li>
-      <li><Link className={link} to-='/auth'>{`Authenticated`}</Link></li>
+      <li><Link to='/' className={link} >{`Home`}</Link></li>
+      <li><Link to='/auth' className={link} >{`Authenticate`}</Link></li>
     </ul>
 }
 
