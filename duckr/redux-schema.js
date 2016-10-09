@@ -1,3 +1,4 @@
+// this schema is built up of all the initialStates of the reducers
 {
   users: {
     isAuthed,
