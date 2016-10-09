@@ -140,6 +140,7 @@
 {
   type: REMOVE_REPLY,
   replyId,
+  duckId,
 }
 
 // Likecount
@@ -159,7 +160,7 @@
 }
 
 
-// Users Ducks
+// UsersDucks
 
 {
   type: FETCHING_USERS_DUCKS,

@@ -73,8 +73,6 @@ function users(state = initialState, action) {
   }
 }
 
-
-
 // Ducks
 const initialState = {
   isFetching: true, // initially we assume we have no ducks
@@ -152,12 +150,15 @@ function feed(state = initialState, action) {
         duckIds: action.duckIds,
         newDucksAvailable: false,
       };
+
+    // Mix in new duckId from action, and other ducks in queue
     case ADD_NEW_DUCK_ID_TO_FEED:
       return {
         ...state,
         duckIdsToAdd: [action.duckId, ...state.newDucksToAdd],
-        duckIds: [],
       };
+
+    // add all queued new ducks into the feed
     case RESET_NEW_DUCKS_AVAILABLE:
       return {
         ...state,
