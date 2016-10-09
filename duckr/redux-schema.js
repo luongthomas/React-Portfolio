@@ -47,15 +47,16 @@
     [duckId]: true
   },
   replies: {
+    lastUpdated,
     [duckId]: {
-      lastUpdated,
       error,
       [replyId]: {
         name,
         comment,
         uid,
         timestamp,
-        avatar
+        avatar,
+        replyId,
       }
     }
   },
