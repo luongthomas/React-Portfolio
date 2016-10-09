@@ -7,3 +7,5 @@ export MainContainer from './Main/MainContainer'
 // not valid javascript, babel allows us to do this,
 // if want valid JS then:
 // export { default as MainContainer } from './Main/Container';
+
+export HomeContainer from './Home/HomeContainer'
