@@ -28,6 +28,7 @@ function ActionLinks({ isAuthed }) {
 
 // stateless function doesn't need to render
 export default function Navigation ({ isAuthed }) {
+  console.log('isAuthed', isAuthed)
   return (
     <div className={container}>
       <nav className={navContainer}>

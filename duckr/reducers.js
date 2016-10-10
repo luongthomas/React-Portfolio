@@ -6,7 +6,7 @@ const initialUserState = {
     uid: '',
     avatar: '',
   },
-};
+}
 
 function user(state = initialUserState, action) {
   switch (action.type) {
@@ -15,9 +15,9 @@ function user(state = initialUserState, action) {
         ...state,
         info: action.user,
         lastUpdated: action.timestamp,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
@@ -26,7 +26,7 @@ const initialState = {
   error: '',
   isAuthed: false,
   authedId: '',
-};
+}
 
 // first time it is called, state is empty, if so, use inital state
 function users(state = initialState, action) {
@@ -36,24 +36,24 @@ function users(state = initialState, action) {
         ...state,
         isAuthed: true,
         authedId: action.uid,
-      };
+      }
     case UNAUTH_USER:
       return {
         ...state,
         isAuthed: false,
         authedId: '',
-      };
+      }
     case FETCHING_USER:
       return {
         ...state,
         isFetching: true,
-      };
+      }
     case FETCHING_USER_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
 
     // if user doesn't exist in firebase, check null
     case FETCHING_USER_SUCCESS:
@@ -67,9 +67,9 @@ function users(state = initialState, action) {
           isFetching: false,
           error: '',
           [action.uid]: user(state[action.uid], action),
-        };
+        }
     default:
-      return state;
+      return state
   }
 }
 
@@ -77,7 +77,7 @@ function users(state = initialState, action) {
 const initialState = {
   isFetching: true, // initially we assume we have no ducks
   error: '',
-};
+}
 
 function ducks(state, action) {
   switch (action.type) {
@@ -85,13 +85,13 @@ function ducks(state, action) {
       return {
         ...state,
         isFetching: true,
-      };
+      }
     case FETCHING_DUCK_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
     case ADD_DUCK:
     case FETCHING_DUCK_SUCCESS:
       return {
@@ -99,24 +99,24 @@ function ducks(state, action) {
         isFetching: false,
         error: '',
         [action.duck.duckId]: action.duck,
-      };
+      }
     case REMOVE_FETCHING:
       return {
         ...state,
         isFetching: false,
         error: '',
-      };
+      }
 
     // return new object w/state mixed with action.ducks, both are objects
     case ADD_MULTIPLE_DUCK:
       return {
         ...state,
         ...action.ducks,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 // Feed
 
@@ -126,7 +126,7 @@ const initialState = {
   newDucksAvailable: false,
   duckIdsToAdd: [],
   duckIds: [],
-};
+}
 
 function feed(state = initialState, action) {
   switch (action.type) {
@@ -135,13 +135,13 @@ function feed(state = initialState, action) {
         ...state,
         fetching: true,
         error: '',
-      };
+      }
     case SETTING_FEED_LISTENER_ERROR:
       return {
         ...state,
         fetching: false,
         error: action.error,
-      };
+      }
     case SETTING_FEED_LISTENER_SUCCESS:
       return {
         ...state,
@@ -149,14 +149,14 @@ function feed(state = initialState, action) {
         error: '',
         duckIds: action.duckIds,
         newDucksAvailable: false,
-      };
+      }
 
     // Mix in new duckId from action, and other ducks in queue
     case ADD_NEW_DUCK_ID_TO_FEED:
       return {
         ...state,
         duckIdsToAdd: [action.duckId, ...state.newDucksToAdd],
-      };
+      }
 
     // add all queued new ducks into the feed
     case RESET_NEW_DUCKS_AVAILABLE:
@@ -165,11 +165,11 @@ function feed(state = initialState, action) {
         duckIds: [...state.newDucksToAdd, ...state.duckIds],
         newDucksToAdd: [],
         newDucksAvailable: false,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 // listeners
 export default function listeners(state = {}, action) {
@@ -178,9 +178,9 @@ export default function listeners(state = {}, action) {
       return {
         ...state,
         [action.listenersId]: true,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
@@ -188,7 +188,7 @@ export default function listeners(state = {}, action) {
 const initialState = {
   newDuckText: '',
   isOpen: false,
-};
+}
 
 // export default
 function modal(state = initialState, action) {
@@ -197,27 +197,27 @@ function modal(state = initialState, action) {
       return {
         ...state,
         isOpen: true,
-      };
+      }
     case CLOSE_MODAL:
       return {
         ...state,
         isOpen: false,
-      };
+      }
     case UPDATE_DUCK_TEXT:
       return {
         ...state,
         duckText: action.newDuckText,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 // usersLikes
 const initialState = {
   isFetching: false,
   error: '',
-};
+}
 
 function usersLikes(state = initialState, action) {
   switch (action.type) {
@@ -225,25 +225,25 @@ function usersLikes(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-      };
+      }
     case FETCHING_LIKES_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
     case FETCHING_LIKES_SUCCESS:
       return {
         ...state,
         ...action.likes,
         isFetching: false,
         error: '',
-      };
+      }
     case ADD_LIKE:
       return {
         ...state,
         [action.duckId]: true,
-      };
+      }
 
     // long-winded way to remove a duckid
     // to keep immutability, loop over every duckid in state
@@ -253,11 +253,11 @@ function usersLikes(state = initialState, action) {
       return Object.keys(state)
         .filter((duckId) => action.duckId !== duckId)
         .reduce((prev, current) => {
-          prev[current] = state[current];
-          return prev;
-        }, {});
+          prev[current] = state[current]
+          return prev
+        }, {})
     default:
-      return state;
+      return state
   }
 }
 
@@ -266,18 +266,18 @@ function usersLikes(state = initialState, action) {
 function count(state = 0, action) {
   switch (action.type) {
     case ADD_LIKE:
-      return state + 1;
+      return state + 1
     case REMOVE_LIKE:
-      return state - 1;
+      return state - 1
     default:
-      return state;
+      return state
   }
 }
 
 const initialState = {
   isFetching: false,
   error: '',
-};
+}
 
 function likeCount(state = initialState, action) {
   switch (action.type) {
@@ -285,19 +285,19 @@ function likeCount(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-      };
+      }
     case FETCHING_COUNT_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
     case FETCHING_COUNT_SUCCESS:
       return {
         ...state,
         ...initialState, // mix in initial state since it's what we want
         [action.duckId]: action.count,
-      };
+      }
     case ADD_LIKE:
     case REMOVE_LIKE:
       return typeof state[action.duckId] === 'undefined'
@@ -305,11 +305,11 @@ function likeCount(state = initialState, action) {
       : {
         ...state,
         [action.duckId]: count(state[action.duckId], action),
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 // usersDucks
 function usersDuck(state, action) {
@@ -318,7 +318,7 @@ function usersDuck(state, action) {
       return {
         ...state,
         duckIds: state.duckIds.concat([action.duckId]),
-      };
+      }
     }
   }
 }
@@ -328,7 +328,7 @@ const initialState = {
   isFetching: false,
   error: '',
   duckIds: [],
-};
+}
 
 function userDucks(state = initialState, action) {
   switch (action.type) {
@@ -336,13 +336,13 @@ function userDucks(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-      };
+      }
     case FETCHING_USERS_DUCKS_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
     case FETCHING_USERS_DUCKS_SUCCESS:
       return {
         ...state,
@@ -352,7 +352,7 @@ function userDucks(state = initialState, action) {
           lastUpdated: action.lastUpdated,
           duckIds: action.duckIds,
         },
-      };
+      }
     case ADD_SINGLE_USERS_DUCK:
       return typeof state[action.uid] === 'undefined'
       ? state
@@ -360,9 +360,9 @@ function userDucks(state = initialState, action) {
         ...state,
         isFetching: false,
         [action.uid]: usersDucks(state[action.uid], action),
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
@@ -374,7 +374,7 @@ const initialReply = {
   timestamp: 0,
   avatar: '',
   replyId: '',
-};
+}
 
 function repliesAndLastUpdated(state = initialReply, action) {
   switch (action.type) {
@@ -383,7 +383,7 @@ function repliesAndLastUpdated(state = initialReply, action) {
         ...state,
         lastUpdated: action.lastUpdated,
         replies: action.replies,
-      };
+      }
   }
 }
 
@@ -393,14 +393,14 @@ function duckReplies(state, action) {
       return {
         ...state,
         [action.reply.replyId]: action.reply,
-      };
+      }
     }
 
     case REMOVE_REPLY: {
       return {
         ...state,
         [action.reply.replyId]: undefined,
-      };
+      }
     }
   }
 }
@@ -408,7 +408,7 @@ function duckReplies(state, action) {
 const initialState = {
   lastUpdated: Date.now(),
   replies: {},
-};
+}
 
 function replies(state = initialState, action) {
   switch (action.type) {
@@ -417,13 +417,13 @@ function replies(state = initialState, action) {
         ...state,
         isFetching: true,
         error: '',
-      };
+      }
     case FETCHING_REPLIES_ERROR:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      };
+      }
     case FETCHING_REPLIES_SUCCESS:
       return {
         ...state,
@@ -433,28 +433,28 @@ function replies(state = initialState, action) {
           lastUpdated: action.lastUpdated,
           replies: action.replies,
         },
-      };
+      }
     case ADD_REPLY:
       return {
         ...state,
-      };
+      }
     case ADD_REPLY_ERROR:
       return {
         ...state,
         replies: duckReplies(state.replies, action),
-      };
+      }
     case ADD_REPLY_SUCCESS:
       return {
         ...state,
-      };
+      }
     case REMOVE_REPLY:
       return {
         ...state,
         isFetching: false,
         error: '',
         [action.duckId]: repliesAndLastUpdated(state[action.duckId], action),
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
