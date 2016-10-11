@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { container, title, slogan } from './styles.css'
 
 export default function Home (props) {

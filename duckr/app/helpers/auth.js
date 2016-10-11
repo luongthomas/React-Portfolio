@@ -1,5 +1,5 @@
 import { ref, firebaseAuth } from 'config/constants'
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
 // returns a promise
 export default function auth () {
@@ -19,16 +19,17 @@ export default function auth () {
 //   })
 // }
 
-export function checkIfAuthed(store) {
+export function checkIfAuthed (store) {
   // ignore firebase
-  return store.getState().isAuthed === true
+  return store.getState().users.isAuthed === true
 }
 
-export function logout() {
+export function logout () {
   return firebaseAuth().signOut()
 }
 
 // ref is root database, child is a location
+// .set will save the data to the location we specify in the url of the ref we create or by using .child
 export function saveUser (user) {
   return ref.child(`users/${user.uid}`)
     .set(user) // save the user to the child location, returns promise

@@ -4,7 +4,7 @@ import {
   MainContainer, HomeContainer, AuthenticateContainer,
   FeedContainer, LogoutContainer } from 'containers'
 
-export default function getRoutes(checkAuth) {
+export default function getRoutes (checkAuth) {
   return (
     <Router history={hashHistory}>
       <Router path='/' component={MainContainer}>

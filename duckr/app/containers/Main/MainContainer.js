@@ -40,7 +40,7 @@ const MainContainer = React.createClass({
     // while auth is still checking, render nothing
     // when it does, then show the container
     return this.props.isFetching === true
-      ? null
+      ? <p>{`Fetching`}</p>
       : <div className={container}>
           <Navigation isAuthed={this.props.isAuthed} />
           <div className={innerContainer}>
@@ -51,6 +51,6 @@ const MainContainer = React.createClass({
 })
 
 export default connect(
-  (state) => ({isAuthed: state.isAuthed, isFetching: state.isFetching}),
+  ({users}) => ({isAuthed: users.isAuthed, isFetching: users.isFetching}),
   (dispatch) => bindActionCreators(userActionCreators, dispatch)
-) (MainContainer)
+)(MainContainer)

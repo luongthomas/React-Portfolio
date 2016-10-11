@@ -24,7 +24,7 @@ function unauthUser () {
   }
 }
 
-function fetchingUser() {
+function fetchingUser () {
   return {
     type: FETCHING_USER,
   }
@@ -42,7 +42,7 @@ export function fetchingUserSuccess (uid, user, timestamp) {
     type: FETCHING_USER_SUCCESS,
     uid,
     user,
-    timestamp
+    timestamp,
   }
 }
 
@@ -72,14 +72,12 @@ export function removeFetchingUser () {
   }
 }
 
-
 export function logoutAndUnauth () {
   return function (dispatch) {
     logout()
     dispatch(unauthUser)
   }
 }
-
 
 // Users
 const initialUserState = {
@@ -91,7 +89,7 @@ const initialUserState = {
   },
 }
 
-function user(state = initialUserState, action) {
+function user (state = initialUserState, action) {
   switch (action.type) {
     case FETCHING_USER_SUCCESS:
       return {
@@ -112,7 +110,7 @@ const initialState = {
 }
 
 // first time it is called, state is empty, if so, use inital state
-export default function users(state = initialState, action) {
+export default function users (state = initialState, action) {
   switch (action.type) {
     case AUTH_USER:
       return {
@@ -142,6 +140,7 @@ export default function users(state = initialState, action) {
     case FETCHING_USER_SUCCESS:
       return action.user === null
         ? {
+          ...state,
           error: '',
           isFetching: false,
         }

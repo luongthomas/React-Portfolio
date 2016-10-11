@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux'
 //  this.props.dispatch to
 import * as userActionCreators from 'redux/modules/users'
 
-
 const AuthenticateContainer = React.createClass({
   propTypes: {
     isFetching: PropTypes.bool.isRequired,
@@ -24,7 +23,7 @@ const AuthenticateContainer = React.createClass({
       .then(() => this.context.router.replace('feed'))
   },
   render () {
-    // console.log('isFetching', this.props.isFetching)
+    console.log('isFetching', this.props.isFetching)
     return (
       <Authenticate
         isFetching={this.props.isFetching}
@@ -34,22 +33,22 @@ const AuthenticateContainer = React.createClass({
   },
 })
 
-function mapStateToProps(state) {
-  // console.log('STATE', state)
-  return {
-    isFetching: state.isFetching,
-    error: state.error,
-  }
-}
-
-// Turns an object whose values are Action Creators,
-//  into an object with the same keys, but with every AC wrapped
-//  into a dispatch call so they can be invoked directly
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators(userActionCreators, dispatch)
-}
+// function mapStateToProps(state) {
+//   // console.log('STATE', state)
+//   return {
+//     isFetching: state.isFetching,
+//     error: state.error,
+//   }
+// }
+//
+// // Turns an object whose values are Action Creators,
+// //  into an object with the same keys, but with every AC wrapped
+// //  into a dispatch call so they can be invoked directly
+// function mapDispatchToProps (dispatch) {
+//   return bindActionCreators(userActionCreators, dispatch)
+// }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-) (AuthenticateContainer)
+  ({users}) => ({isFetching: users.isFetching, error: users.error}),
+  (dispatch) => bindActionCreators(userActionCreators, dispatch)
+)(AuthenticateContainer)
