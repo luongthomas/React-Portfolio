@@ -30,3 +30,11 @@
     duckId
 
 /usersDucks
+  uid
+    duckId
+      avatar
+      duckId
+      name
+      text
+      timestamp
+      uid

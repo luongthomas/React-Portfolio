@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { Modal } from 'components'
 import { connect } from 'react-redux'
 import * as modalActionCreators from 'redux/modules/modal'
+import * as ducksActionCreators from 'redux/modules/ducks'
 
 // <Modal /> will receive all these as props
 function mapStateToProps ({modal, users}) {
@@ -18,8 +19,9 @@ function mapStateToProps ({modal, users}) {
 }
 
 // Modal will receive all of these as props
+// the spread operator will combine them into one object, the first param only takes one object
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(modalActionCreators, dispatch)
+  return bindActionCreators({...modalActionCreators, ...ducksActionCreators}, dispatch)
 }
 
 // since modalcontainer didn't have lifecycle events,

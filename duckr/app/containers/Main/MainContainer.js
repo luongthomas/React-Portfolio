@@ -13,6 +13,8 @@ const MainContainer = React.createClass({
     authUser: PropTypes.func.isRequired,
     fetchingUserSuccess: PropTypes.func.isRequired,
     removeFetchingUser: PropTypes.func.isRequired,
+    children: PropTypes.object,
+    isFetching: PropTypes.bool.isRequired,
   },
   contextTypes: {
     router: PropTypes.object.isRequired,

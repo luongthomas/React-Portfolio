@@ -34,7 +34,7 @@
       }
     }
   },
-  userDucks: {
+  usersDucks: {
     lastUpdated,
     error
     [uid]: {

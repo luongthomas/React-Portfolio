@@ -69,19 +69,20 @@ const base = {
 
 // HotModuleReplacementPlugin allows us to keep state while changing component
 const developmentConfig = {
-  devtool: 'cheap-module-source-map',
+  // devtool: 'cheap-module-eval-source-map',  // works, but kills performance
+  // https://github.com/webpack/webpack/issues/2145
   devServer: {
     contentBase: PATHS.build,
     hot: true,
     inline: true,
     progress: true,
   },
-  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
+  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new webpack.SourceMapDevToolPlugin(),]
 }
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HtmlWebpackPluginConfig, productionPlugin]
+  plugins: [HtmlWebpackPluginConfig, productionPlugin,]
 }
 
 

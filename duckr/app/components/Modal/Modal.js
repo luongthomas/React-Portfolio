@@ -3,6 +3,7 @@ import { default as ReactModal } from 'react-modal' // npm installed ReactModal 
 import {
   newDuckTop, pointer, newDuckInputContainer,
   newDuckInput, darkBtn, submitDuckBtn } from './styles.css'
+import { formatDuck } from 'helpers/utils'
 
 // modify the Reactmodal through content
 const modalStyles = {
@@ -25,13 +26,13 @@ Modal.propTypes = {
   openModal: func.isRequired,
   closeModal: func.isRequired,
   updateDuckText: func.isRequired,
+  duckFanOut: func.isRequired,
 }
 
 // go ahead and import this thing and call it ReactModal, to keep it separate from our modal
 export default function Modal (props) {
   function submitDuck () {
-    console.log('Duck', props.duckText)
-    console.log('user', props.user)
+    props.duckFanOut(formatDuck(props.duckText, props.user))
   }
 
   // onRequestClose will close the modal if clicked outside the modal
