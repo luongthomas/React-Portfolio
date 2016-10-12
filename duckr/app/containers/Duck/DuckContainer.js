@@ -1,6 +1,5 @@
 // Purpose of DuckContainer is to get all ducks information
 // without passing it to feed and down to the Duck component, keeps it modular
-
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -47,8 +46,6 @@ const DuckContainer = React.createClass({
         onClick={this.props.hideReplyBtn === true ? null : this.handleClick}
         // when on duckDetail page, there is no reply button, so stay on page
         {...this.props} />  // take all our props and spread them into the duck component
-
-
     )
   },
 })

@@ -10,7 +10,7 @@ function fetchingCount () {
   }
 }
 
-function fetchingCountError (error) {
+function fetchingCountError () {
   return {
     type: FETCHING_COUNT_ERROR,
     error: 'Error fetching duck\'s like count',
@@ -40,7 +40,7 @@ function removeLike (duckId) {
 }
 
 // likeCount
-function count(state = 0, action) {
+function count (state = 0, action) {
   switch (action.type) {
     case ADD_LIKE:
       return state + 1
@@ -56,7 +56,7 @@ const initialState = {
   error: '',
 }
 
-export default function likeCount(state = initialState, action) {
+export default function likeCount (state = initialState, action) {
   switch (action.type) {
     case FETCHING_COUNT:
       return {

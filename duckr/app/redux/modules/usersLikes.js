@@ -12,7 +12,7 @@ export const REMOVE_LIKE = 'REMOVE_LIKE'
 // usersLikes
 function fetchingLikes () {
   return {
-    type: FETCHING_LIKES
+    type: FETCHING_LIKES,
   }
 }
 
@@ -58,7 +58,6 @@ export function addAndHandleLike (duckId, e) {
       console.warn(error)
       dispatch(removeLike(duckId))
     })
-
   }
 }
 
@@ -70,13 +69,22 @@ export function handleDeleteLike (duckId, e) {
 
     const uid = getState().users.authedId
     Promise.all([
-      deleteToUsersLikes(uid, duckId),
+      deleteFromUsersLikes(uid, duckId),
       decrementNumberOfLikes(duckId),
     ]).catch((error) => {     // if problem, then add like
       console.warn(error)
       dispatch(addLike(duckId))
     })
+  }
+}
 
+export function setUsersLikes () {
+  return function (dispatch, getState) {
+    const uid = getState().users.authedId
+    dispatch(fetchingLikes())
+    fetchUsersLikes(uid)
+      .then((likes) => dispatch(fetchingLikesSuccess(likes)))
+      .catch((error) => dispatch(fetchingLikesError(error)))
   }
 }
 
@@ -86,7 +94,7 @@ const initialState = {
   error: '',
 }
 
-export default function usersLikes(state = initialState, action) {
+export default function usersLikes (state = initialState, action) {
   switch (action.type) {
     case FETCHING_LIKES:
       return {

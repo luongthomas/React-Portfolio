@@ -27,7 +27,7 @@ export default function Feed (props) {
   return props.isFetching === true
     ? <h1 className={header}>{`Fetching`}</h1>
     : <div>
-      {props.newDucksAvailable ? <newDucksAvailable handleClick={props.resetNewDucksAvailable} /> : null}
+      {props.newDucksAvailable ? <NewDucksAvailable handleClick={props.resetNewDucksAvailable} /> : null}
       {props.duckIds.length === 0
         ? <p className={header}>{`This is unfortunate`}<br /> {`It appears there are no ducks yet.`}</p>
         : null}
