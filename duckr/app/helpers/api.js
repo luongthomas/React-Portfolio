@@ -75,3 +75,35 @@ export function decrementNumberOfLikes (duckId) {
   return ref.child(`likeCount/${duckId}`)
     .transaction((currentValue = 0) => currentValue - 1)
 }
+
+export function fetchUsersDucks (uid) {
+  return ref.child(`usersDucks/${uid}`).once('value')
+    .then((snapshot) => snapshot.val() || {})
+}
+
+// thunks to help cache data
+export function fetchUser (uid) {
+  return ref.child(`users/${uid}`).once('value')
+    .then((snapshot) => snapshot.val())
+}
+
+export function fetchDuck (duckId) {
+  return ref.child(`ducks/${duckId}`).once('value')
+    .then((snapshot) => snapshot.val())
+}
+
+export function fetchLikeCount (duckId) {
+  return ref.child(`likeCount/${duckId}`).once('value')
+    .then((snapshot) => snapshot.val() || 0)
+}
+
+export function postReply (duckId, reply) {
+  const replyId = ref.child(`replies/${duckId}`).push().key
+  const replyWithId = {...reply, replyId}
+  const replyPromise = ref.child(`replies/${duckId}/${replyId}`).set(replyWithId)
+
+  return {
+    replyWithId,
+    replyPromise,
+  }
+}

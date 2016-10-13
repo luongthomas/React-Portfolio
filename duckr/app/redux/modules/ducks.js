@@ -1,4 +1,4 @@
-import { saveDuck } from 'helpers/api'
+import { saveDuck, fetchDuck } from 'helpers/api'
 import { closeModal } from './modal'
 import { addSingleUsersDuck } from './usersDucks'
 
@@ -10,14 +10,14 @@ const ADD_DUCK = 'ADD_DUCK'
 const ADD_MULTIPLE_DUCKS = 'ADD_MULTIPLE_DUCKS'
 
 // Ducks
-
 function fetchingDuck () {
   return {
     type: FETCHING_DUCK,
   }
 }
 
-function fetchingDuckError () {
+function fetchingDuckError (error) {
+  console.warn(error)
   return {
     type: FETCHING_DUCK_ERROR,
     error: 'Error fetching duck',
@@ -31,7 +31,7 @@ function fetchingDuckSuccess (duck) {
   }
 }
 
-function removeFetching () {
+export function removeFetching () {
   return {
     type: REMOVE_FETCHING,
   }
@@ -42,6 +42,17 @@ function addDuck (duck) {
   return {
     type: ADD_DUCK,
     duck,
+  }
+}
+
+// common pattern.  thunk dispatches multiple updates to store as ajax request makes its way
+export function fetchAndHandleDuck (duckId) {
+  return function (dispatch, getState) {
+    dispatch(fetchingDuck())
+    fetchDuck(duckId)
+      .then((duck) => dispatch(fetchingDuckSuccess(duck)))
+      .catch((error) => dispatch(fetchingDuckError(error)))
+
   }
 }
 

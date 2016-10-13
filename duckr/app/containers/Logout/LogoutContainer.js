@@ -7,6 +7,7 @@ const LogoutContainer = React.createClass({
   propTypes: {
     dispatch: PropTypes.func.isRequired,
   },
+
   componentDidMount () {
     this.props.dispatch(logoutAndUnauth())
   },

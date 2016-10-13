@@ -1,3 +1,4 @@
+import { fetchLikeCount } from 'helpers/api'
 import { ADD_LIKE, REMOVE_LIKE } from './usersLikes'
 const FETCHING_COUNT = 'FETCHING_COUNT'
 const FETCHING_COUNT_ERROR = 'FETCHING_COUNT_ERROR'
@@ -10,7 +11,8 @@ function fetchingCount () {
   }
 }
 
-function fetchingCountError () {
+function fetchingCountError (error) {
+  console.warn(error)
   return {
     type: FETCHING_COUNT_ERROR,
     error: 'Error fetching duck\'s like count',
@@ -36,6 +38,17 @@ function removeLike (duckId) {
   return {
     type: REMOVE_LIKE,
     duckId,
+  }
+}
+
+// async thunk aka action creator
+export function initLikeFetch (duckId) {
+  return function (dispatch, getState) {
+    dispatch(fetchingCount())
+
+    fetchLikeCount(duckId)
+      .then((count) => dispatch(fetchingCountSuccess(duckId, count)))
+      .catch((error) => dispatch(fetchingCountError(error)))
   }
 }
 

@@ -1,5 +1,6 @@
 import auth, { logout, saveUser } from 'helpers/auth'
 import { formatUserInfo } from 'helpers/utils'
+import { fetchUser } from 'helpers/api'
 
 // coincides with action types,
 // there are times where we want to export these for other reducers to use
@@ -46,6 +47,15 @@ export function fetchingUserSuccess (uid, user, timestamp) {
   }
 }
 
+export function fetchAndHandleUser (uid) {
+  return function (dispatch) {
+    dispatch(fetchingUser())
+    return fetchUser(uid)
+      .then((user) => dispatch(fetchingUserSuccess(uid, user, Date.now())))
+      .catch((error) => dispatch(fetchingUserFailure(error)))
+  }
+}
+
 // use thunk from redux-thunk
 // use applyMiddleware from redux
 // thunk is middleware between action and moment when it reaches reducer
@@ -56,8 +66,10 @@ export function fetchAndHandleAuthedUser () {
     dispatch(fetchingUser())
     return auth().then(({ user, credential }) => {
       const userData = user.providerData[0]
-      const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
-      return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
+      console.log('userData', userData)
+      const userInfo = formatUserInfo(userData.displayName, userData.photoURL, userData.uid)
+      console.log('fetchAndHandleAuthedUser user.uid', userData.uid)
+      return dispatch(fetchingUserSuccess(userData.uid, userInfo, Date.now()))
     })
     // receive an object with the user property on it
     .then(({ user }) => saveUser(user)) // save user and then auth

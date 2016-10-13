@@ -28,6 +28,7 @@ const MainContainer = React.createClass({
       if (user) {
         const userData = user.providerData[0]
         const userInfo = formatUserInfo(userData.displayName, userData.photoURL, userData.uid)
+        console.log('maincontainer onAuthStateChanged userData.uid', userData.uid)
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
         this.props.setUsersLikes()
@@ -35,7 +36,6 @@ const MainContainer = React.createClass({
           this.context.router.replace('feed')
         }
       } else {
-        // solves: fetching is true, and not authenticated, so renders nothing indefinitely
         this.props.removeFetchingUser()
       }
     })
@@ -59,6 +59,6 @@ export default connect(
   ({users}) => ({isAuthed: users.isAuthed, isFetching: users.isFetching}),
   (dispatch) => bindActionCreators({
     ...userActionCreators,
-    ...usersLikesActionCreators
+    ...usersLikesActionCreators,
   }, dispatch)
 )(MainContainer)
